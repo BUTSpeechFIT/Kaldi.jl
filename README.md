@@ -6,7 +6,7 @@ Currently, we can only read and write Kaldi `.ark` matrices, and read a nnet2 bi
 ## Install
 
 ```julia
-Pkg.clone("https://github.com/davidavdav/Kaldi.jl.git")
+pkg> add https://github.com/BUTSpeechFIT/Kaldi.jl.git
 ```
 
 ## Reading a Kaldi `.ark` file
