@@ -13,7 +13,7 @@ function uint8tofloat(x::UInt8, quantiles)
     end
 end
 
-readtoken(io::IO) = ascii(readuntil(io, ' ')[1:end-1])
+readtoken(io::IO) = ascii(readuntil(io, ' '))
 expecttoken(io::IO, token) = (t = readtoken(io)) == token || error("Expected ", token, ", saw ", t)
 
 #function expectoneortwotokens(io::IO, token1, token2)
