@@ -1,0 +1,8 @@
+name = "Kaldi"
+uuid = "7eb7ba46-66c3-45f1-b80d-bb47632a25bc"
+authors = ["Kocour Martin <ikocour@fit.vutbr.cz>"]
+version = "0.1.0"
+
+[deps]
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
