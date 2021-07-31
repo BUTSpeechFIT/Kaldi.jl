@@ -178,10 +178,10 @@ function load_hmm_topology(io::IO)
         hmm = false
         len = readint(io)
     end
-    topo = Array{TopologyEntry}(len)
+    topo = Vector{TopologyEntry}(undef, len)
     for i in 1:len
         n = readint(io)
-        e = Array{HmmState}(n)
+        e = Vector{HmmState}(undef, n)
         T = Any
         for j in 1:n
             pdf_class = readint(io)
@@ -360,7 +360,8 @@ function readvector(io::IO, t::Type)
     s = read(io, UInt8)
     len = read(io, Int32)
     s == sizeof(t) || error("Type size check failed: ", s, " ", sizeof(t))
-    return read(io, t, len)
+    v = Vector{t}(undef, len)
+    return read!(io, v)
 end
 
 ## This reads a Kaldi-encoded vector or matrix
@@ -379,11 +380,13 @@ function read_kaldi_array(io::IO, token="")
     end
     if token[2] == 'V'
         len = readint(io)
-        return read(io, datatype, len)
+        v = Vector{datatype}(undef, len)
+        return read!(io, v)
     elseif token[2] == 'M'
         nrow = Int(readint(io))
         ncol = Int(readint(io))
-        return reshape(read(io, datatype, nrow*ncol), (ncol, nrow))'
+        M = Matrix{datatype}(undef, nrow*ncol)
+        return read!(io, M)
     else
         error("Unknown array type")
     end
