@@ -84,6 +84,18 @@ function load_single_ark_matrix(io::IO)
     end
 end
 
+
+"""Reads a single binary vector at the current position of io"""
+function load_single_ark_vector(io::IO)
+    is_binary(io) || error("Only binary format is supported yet")
+    len = readint(io)
+    v = Vector{Int}()
+    for i in 1:len
+        v[i] = readint(io)
+    end
+    return v
+end
+
 ## reads two bytes from io and checks that these are "\0B"
 is_binary(io::IO) = read(io, UInt8) == 0 && read(io, Char) == 'B'
 
@@ -107,6 +119,21 @@ end
 
 load_ark_matrices(s::String) = open(s) do fd
     load_ark_matrices(fd)
+end
+
+load_ark_vector(io::IO) = Channel() do c
+    while !eof(io)
+        id = readtoken(io)
+        push!(c, (id, load_single_ark_vector(io)))
+    end
+end
+
+function load_ark_vectors(io::IO)
+    data = OrderedDict{String, Vector}()
+    for (id, vector) in load_ark_vector(io)
+        data[id] = vector
+    end
+    return data
 end
 
 ## save a single matrix with a key
