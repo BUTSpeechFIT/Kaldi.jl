@@ -136,6 +136,9 @@ function load_ark_vectors(io::IO)
     return data
 end
 
+load_ark_vectors(filename::String) = open(filename) do fd
+    load_ark_vectors(fd)
+end
 ## save a single matrix with a key
 function save_ark_matrix(fd::IO, key::String, value::Matrix{T}) where T<:AbstractFloat
     write(fd, key * " \0B")
