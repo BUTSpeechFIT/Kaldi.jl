@@ -89,7 +89,7 @@ end
 function load_single_ark_vector(io::IO)
     is_binary(io) || error("Only binary format is supported yet")
     len = readint(io)
-    v = Vector{Int}()
+    v = Vector{Int}(undef, len)
     for i in 1:len
         v[i] = readint(io)
     end

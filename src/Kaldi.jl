@@ -5,7 +5,7 @@ module Kaldi
 
 using DataStructures
 
-export load_ark_matrix, save_ark_matrix, load_nnet_am, load_ark_matrices, components, __version__
+export load_ark_matrix, load_ark_vectors, load_ark_vector, save_ark_matrix, load_nnet_am, load_ark_matrices, components, __version__
 
 __version__ = "t2"
 
