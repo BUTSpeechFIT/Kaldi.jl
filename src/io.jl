@@ -79,8 +79,9 @@ function load_single_ark_matrix(io::IO)
         end
         nrow = Int64(readint(io))
         ncol = Int64(readint(io))
-        M = Matrix{datatype}(undef, nrow, ncol)
-        return read!(io, M) 
+        v = Vector{datatype}(undef, nrow*ncol)
+        read!(io, v)
+        return reshape(v, (ncol, nrow))'
     end
 end
 
