@@ -32,7 +32,7 @@ Tuple4(phone::Int32, hmm_state::Int32, pdf_class::Int32) = Tuple4(phone, hmm_sta
 
 
 struct TransitionModel{T<:AbstractFloat}
-	topo::Vector{TopologyEntry}
+	topo::Dict{Int, TopologyEntry}
 	tuples::Vector{Tuple4}
 	log_probs::Vector{T}
 end
