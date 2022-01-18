@@ -229,7 +229,7 @@ function load_hmm_topology(io::IO)
         topo[i] = TopologyEntry(e)
     end
     expecttoken(io, "</Topology>")
-    return Dict(p => topo[topo[p+1]+1] for p in phones)
+    return Dict(p => topo[phone2idx[p+1]+1] for p in phones)
 end
 
 ## recursive list of subtypes, I may be doing this not so efficiently
